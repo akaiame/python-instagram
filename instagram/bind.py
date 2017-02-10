@@ -1,12 +1,7 @@
-import urllib.request, urllib.parse, urllib.error
+import urllib
 from .oauth2 import OAuth2Request
 import re
-import _io as io
 from .json_import import simplejson
-# try:
-#     import simplejson as json
-# except ImportError:
-#     import json
 import hmac
 from hashlib import sha256
 import six
@@ -107,8 +102,8 @@ def bind_method(**config):
 
                 self.path = self.path.replace(variable, value)
 
-            # if self.api.format and not self.exclude_format:
-            #     self.path = self.path + '.%s' % self.api.format
+            if self.api.format and not self.exclude_format:
+                self.path = self.path + '.%s' % self.api.format
 
         def _build_pagination_info(self, content_obj):
             """Extract pagination information in the desired format."""
@@ -130,11 +125,6 @@ def bind_method(**config):
             response, content = OAuth2Request(self.api).make_request(url, method=method, body=body, headers=headers)
             if response['status'] == '503' or response['status'] == '429':
                 raise InstagramAPIError(response['status'], "Rate limited", "Your client is making too many request per second")
-
-            if type(content) == bytes:
-                content = io.BytesIO(content).getvalue().decode("utf-8")
-                # with open("content_output.txt","w") as fp:
-                #     fp.write(content.decode("utf-8"))
             try:
                 content_obj = simplejson.loads(content)
             except ValueError:

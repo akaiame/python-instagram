@@ -9,7 +9,7 @@ class ApiModel(object):
         # make dict keys all strings
         if entry is None:
             return ""
-        entry_str_dict = dict([(str(key), value) for key, value in list(entry.items())])
+        entry_str_dict = dict([(str(key), value) for key, value in entry.items()])
         return cls(**entry_str_dict)
 
     def __repr__(self):
@@ -23,7 +23,7 @@ class ApiModel(object):
         if six.PY3:
             return self.__unicode__()
         else:
-            return str(self).encode('utf-8')
+            return unicode(self).encode('utf-8')
 
 
 class Image(ApiModel):
@@ -96,9 +96,8 @@ class Media(ApiModel):
 
         new_media.comment_count = entry['comments']['count']
         new_media.comments = []
-        if 'data' in entry['comments']:
-            for comment in entry['comments']['data']:
-                new_media.comments.append(Comment.object_from_dictionary(comment))
+        for comment in entry['comments']['data']:
+            new_media.comments.append(Comment.object_from_dictionary(comment))
 
         new_media.users_in_photo = []
         if entry.get('users_in_photo'):
