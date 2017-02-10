@@ -106,7 +106,7 @@ class InstagramAPI(oauth2.OAuth2API):
                 paginates=True)
 
     user_recent_media = bind_method(
-                path="/users/{user_id}/media/recent",
+                path="/users/{user_id}/media/recent/",
                 accepts_parameters=MEDIA_ACCEPT_PARAMETERS + ['user_id', 'min_id', 'max_timestamp', 'min_timestamp'],
                 root_class=Media,
                 paginates=True)
@@ -135,7 +135,7 @@ class InstagramAPI(oauth2.OAuth2API):
                 response_type="entry")
 
     location_recent_media = bind_method(
-                path="/locations/{location_id}/media/recent",
+                path="/locations/{location_id}/media/recent/",
                 accepts_parameters=MEDIA_ACCEPT_PARAMETERS + ['location_id'],
                 root_class=Media,
                 paginates=True)
@@ -152,13 +152,13 @@ class InstagramAPI(oauth2.OAuth2API):
                 response_type="entry")
 
     geography_recent_media = bind_method(
-                path="/geographies/{geography_id}/media/recent",
+                path="/geographies/{geography_id}/media/recent/",
                 accepts_parameters=MEDIA_ACCEPT_PARAMETERS + ["geography_id"],
                 root_class=Media,
                 paginates=True)
 
     tag_recent_media = bind_method(
-                path="/tags/{tag_name}/media/recent",
+                path="/tags/{tag_name}/media/recent/",
                 accepts_parameters=['count', 'max_tag_id', 'tag_name'],
                 root_class=Media,
                 paginates=True)

@@ -162,16 +162,16 @@ class OAuth2Request(object):
             return base
 
     def _signed_request(self, path, params, include_signed_request, include_secret):
-        if include_signed_request and self.api.client_secret is not None:
-            if self.api.access_token:
-                params['access_token'] = self.api.access_token
-            elif self.api.client_id:
-                params['client_id'] = self.api.client_id
-            if include_secret and self.api.client_secret:
-                params['client_secret'] = self.api.client_secret
-            return "&sig=%s" % self._generate_sig(path, params, self.api.client_secret)
-        else:
-            return ''
+        # if include_signed_request and self.api.client_secret is not None:
+        #     if self.api.access_token:
+        #         params['access_token'] = self.api.access_token
+        #     elif self.api.client_id:
+        #         params['client_id'] = self.api.client_id
+        #     if include_secret and self.api.client_secret:
+        #         params['client_secret'] = self.api.client_secret
+        #     return "&sig=%s" % self._generate_sig(path, params, self.api.client_secret)
+        # else:
+        return ''
 
     def _post_body(self, params):
         return urlencode(params)
